@@ -26,11 +26,11 @@ mongoose
 
   app.post("/signin", async (req, res) => {
     const username = req.body.username;
-    const password = req.body.password;
+    const password = req.body.pass;
 
     const user = await User.findOne({
         username: username,
-        password: password
+        password: pass
     });
 
     if (user) {
