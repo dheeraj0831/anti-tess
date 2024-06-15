@@ -30,7 +30,6 @@ export default function Landing() {
     const navigate = useNavigate()
     const nameRef = useRef(null);
     const rollRef = useRef(null)
-    const secRef = useRef(null)
 
     const handleSectionChange = (value) => {
         setSection(value);
