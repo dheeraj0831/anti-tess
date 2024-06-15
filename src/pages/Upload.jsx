@@ -3,10 +3,18 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
+import { useLocation } from "react-router-dom";
+
+
 
 const Upload = () => {
+  const location = useLocation();
+  const state = location.state;
+  console.log("in upload")
+  console.log(state);
   useEffect(() => {
     // When the component mounts, add one initial problem
+    
     addProblem();
   }, []);
 

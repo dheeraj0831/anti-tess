@@ -8,7 +8,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { useState } from 'react'
+import { useRef } from 'react'
 import {
     Accordion,
     AccordionContent,
@@ -23,12 +23,20 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-
+import { useNavigate } from 'react-router-dom'
 
 export default function Landing() {
-    const [userData, setUserData] = useState({})
+    // const [userData, setUserData] = useState({})
+    const navigate = useNavigate()
+    const nameRef = useRef(null);
+    const rollRef = useRef(null)
+    const secRef = useRef(null)
     const handleSubmit = () => {
-
+        const name = nameRef.current.value;
+        const rollno = rollRef.current.value;
+        // const section = secRef.current.value;
+        // console.log(section)
+        navigate('/upload', { state: { name, rollno} });        
     }
     return (
         <>
@@ -42,22 +50,20 @@ export default function Landing() {
                             <CardTitle>Enter Your Details</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Input type="text" className='mt-4' placeholder="Enter Name" />
-                            <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" />
-                            {/* <Input type="text" className='mt-4' placeholder="Enter Section" /> */}
+                            <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef}/>
+                            <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef}/>
                             <Select className="w-full">
                                 <SelectTrigger >
                                     <SelectValue placeholder="Section" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="fs-elite">FS-ELITE</SelectItem>
-                                    <SelectItem value="fs-a1">FS-A1</SelectItem>
-
+                                    <SelectItem value="fs-a1" >FS-A1</SelectItem>
                                 </SelectContent>
                             </Select>
                         </CardContent>
                         <CardFooter>
-                            <Button onClick={handleSubmit}>Submit</Button>
+                                <Button onClick={handleSubmit}>Submit</Button>
                         </CardFooter>
                     </Card>
 
