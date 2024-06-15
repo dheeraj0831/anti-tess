@@ -50,12 +50,21 @@ const Problem = () => {
                     <div className="flex flex-col gap-4">
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="picture">Picture</Label>
-                            <Input
-                                id="picture"
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                            />
+                            <div className="relative w-full">
+                                <Input
+                                    id="picture"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10"
+                                />
+                                <Button
+                                    type="button"
+                                    className="w-full bg-white dark:bg-transparent bor text-black dark:text-white"
+                                >
+                                    Choose File
+                                </Button>
+                            </div>
                         </div>
                         {imagePreview && (
                             <img
