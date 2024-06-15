@@ -15,6 +15,13 @@ import {
     AccordionItem,
     AccordionTrigger,
   } from "@/components/ui/accordion"
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
   
 
 
@@ -37,7 +44,17 @@ export default function Landing() {
                         <CardContent>
                             <Input type="text" className='mt-4' placeholder="Enter Name" />
                             <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" />
-                            <Input type="text" className='mt-4' placeholder="Enter Section" />
+                            {/* <Input type="text" className='mt-4' placeholder="Enter Section" /> */}
+                            <Select className="w-full">
+                            <SelectTrigger >
+                                <SelectValue placeholder="Section" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="fs-elite">FS-ELITE</SelectItem>
+                                <SelectItem value="fs-a1">FS-A1</SelectItem>
+                                
+                            </SelectContent>
+                        </Select>
                         </CardContent>
                         <CardFooter>
                             <Button onClick={handleSubmit}>Submit</Button>
