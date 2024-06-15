@@ -25,20 +25,20 @@ export default function Specific({ name, rollno, section, imageUrl, description 
                     <Button>Open</Button>
                 </DialogTrigger>
                 <DialogContent className='max-w-7xl'>
-                    <Card className='m-2'>
+                    <Card className='m-2 bg-transparent border-0 '>
                         <CardHeader>
                             <CardTitle>{name}</CardTitle>
                             <CardDescription className="flex justiy-evenly gap-5">
-                                    {rollno}
-                                    <Badge variant="secondary">{section}</Badge>
+                                {rollno}
+                                <Badge variant="secondary">{section}</Badge>
                             </CardDescription>
                         </CardHeader>
                         <CardContent className='flex flex-col items-center gap-5'>
-                            <img src={imageUrl} alt={rollno}/>
+                            <img src={imageUrl} alt={rollno} />
                             {description}
                         </CardContent>
                         <CardFooter className='flex justify-evenly'>
-                            <Button className='w-1/3 bg-slate-700'>Approve</Button>
+                            <Button className='w-1/3 bg-slate-700 hover:bg-green-600'>Approve</Button>
                             <Button className='w-1/3'>Reject</Button>
                         </CardFooter>
                     </Card>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -26,17 +26,23 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 export default function Landing() {
-    // const [userData, setUserData] = useState({})
+    const [section, setSection] = useState(null)
     const navigate = useNavigate()
     const nameRef = useRef(null);
     const rollRef = useRef(null)
     const secRef = useRef(null)
+
+    const handleSectionChange = (value) => {
+        setSection(value);
+    };
+
+
     const handleSubmit = () => {
         const name = nameRef.current.value;
         const rollno = rollRef.current.value;
         // const section = secRef.current.value;
         // console.log(section)
-        navigate('/upload', { state: { name, rollno} });        
+        navigate('/upload', { state: { name, rollno, section } });
     }
     return (
         <>
@@ -50,9 +56,9 @@ export default function Landing() {
                             <CardTitle>Enter Your Details</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef}/>
-                            <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef}/>
-                            <Select className="w-full">
+                            <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef} />
+                            <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef} />
+                            <Select className="w-full" onValueChange={handleSectionChange}>
                                 <SelectTrigger >
                                     <SelectValue placeholder="Section" />
                                 </SelectTrigger>
@@ -63,7 +69,7 @@ export default function Landing() {
                             </Select>
                         </CardContent>
                         <CardFooter>
-                                <Button onClick={handleSubmit}>Submit</Button>
+                            <Button onClick={handleSubmit}>Submit</Button>
                         </CardFooter>
                     </Card>
 

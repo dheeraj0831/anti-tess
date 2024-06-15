@@ -6,9 +6,13 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import Specific from "./Specific"
 
 
 const Probpreview = ({ imageUrl, name, rollno, section, desc }) => {
+
+    const shortDesc = desc.substring(0, 100) + "..."
+
     return (
         <Card className="w-full">
             <CardHeader>
@@ -17,9 +21,11 @@ const Probpreview = ({ imageUrl, name, rollno, section, desc }) => {
             </CardHeader>
             <CardContent>
                 <img src={imageUrl} alt={rollno} className="w-full" />
+                {shortDesc}
             </CardContent>
-            <CardFooter>
-                <p>{desc}</p>
+            <CardFooter >
+                {/* <p className="w-full">{desc}</p> */}
+                <Specific name={name} rollno={rollno} section={section} imageUrl={imageUrl} description={desc} />
             </CardFooter>
         </Card>
 
