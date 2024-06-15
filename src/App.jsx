@@ -1,9 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing'
-import Faculty from './pages/Faculty'
+import Allatone from './pages/Allatone'
 import Upload from './pages/Upload'
-import Approve from './pages/Approve'
 
 export default function App() {
   return (
@@ -11,12 +10,14 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/faculty" element={<Faculty />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path='/approve' element={<Approve />} />
+          <Route path='/all-issues' element={<Allatone />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </BrowserRouter>
+
+      {/* Testing to be done here */}
+      {/* <Allatone /> */}
     </>
   )
 }
