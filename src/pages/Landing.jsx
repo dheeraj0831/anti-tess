@@ -14,8 +14,8 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-  } from "@/components/ui/accordion"
-  
+} from "@/components/ui/accordion"
+
 
 
 export default function Landing() {
@@ -55,7 +55,7 @@ export default function Landing() {
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value='item-2'>
-                    <AccordionTrigger>What exactly will you be doing on this platform</AccordionTrigger>
+                        <AccordionTrigger>What exactly will you be doing on this platform</AccordionTrigger>
                         <AccordionContent>
                             You will be uploading screen-shots of all the evaluations of the tessaracts asesments along with the grievences with that particular evaluation
                         </AccordionContent>
