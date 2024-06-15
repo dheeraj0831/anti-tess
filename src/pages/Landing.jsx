@@ -32,12 +32,16 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-export default function Landing() {
-    const [section, setSection] = useState(null)
-    const navigate = useNavigate()
-    const nameRef = useRef(null);
-    const rollRef = useRef(null)
+import axios from 'axios'
 
+
+export default function Landing() {
+    const [section, setSection] = useState(null);
+    const navigate = useNavigate();
+    const nameRef = useRef(null);
+    const rollRef = useRef(null);
+    const userNameRef = useRef(null);
+    const passRef = useRef(null);
     const handleSectionChange = (value) => {
         setSection(value);
     };
@@ -46,9 +50,32 @@ export default function Landing() {
     const handleSubmit = () => {
         const name = nameRef.current.value;
         const rollno = rollRef.current.value;
-        // const section = secRef.current.value;
-        // console.log(section)
         navigate('/upload', { state: { name, rollno, section } });
+    }
+    const handleLogin = async ()=>{
+        const userName = userNameRef.current.value;
+        const pass = passRef.current.value;
+
+        try{
+            const res = await axios({
+                url: "",
+                method: "post",
+                data:{
+                    username: userName,
+                    password: pass
+                }
+            });
+            const jwtToken = res.data.token;
+            localStorage.setItem("token", jwtToken);
+            nav("/all-issues");
+        }
+        catch{
+            
+        }
+
+
+
+
     }
     return (
         <>
@@ -62,9 +89,9 @@ export default function Landing() {
                     <DialogHeader>
                         <DialogTitle>This is for Verifiers Only</DialogTitle>
                     </DialogHeader>
-                        <Input type="text" className='mt-4' placeholder="Enter UserName" />
-                        <Input type="text" className='mt-4 mb-4' placeholder="Enter Password" />
-                        <Button>Login</Button>
+                        <Input type="text" className='mt-4' placeholder="Enter UserName" ref={userNameRef} />
+                        <Input type="text" className='mt-4 mb-4' placeholder="Enter Password" ref={passRef}/>
+                        <Button onClick={handleLogin}>Login</Button>
                     </DialogContent>
                 </Dialog>
             </div>

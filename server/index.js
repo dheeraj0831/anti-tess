@@ -5,7 +5,7 @@ import Problem from "./model/problem.js";
 import User from './model/user.js';
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import { authMiddleware } from "./middlewaer.js";
+import { authMiddleware } from "./middleware.js";
 dotenv.config();
 
 const app = express();
