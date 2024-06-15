@@ -24,7 +24,14 @@ import {
 } from "@/components/ui/select"
 
 import { useNavigate } from 'react-router-dom'
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 export default function Landing() {
     const [section, setSection] = useState(null)
     const navigate = useNavigate()
@@ -45,6 +52,22 @@ export default function Landing() {
     }
     return (
         <>
+            <div className="flex justify-end m-3">
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button>Login</Button>
+                    </DialogTrigger>
+                    
+                    <DialogContent className='max-w-md'>
+                    <DialogHeader>
+                        <DialogTitle>This is for Verifiers Only</DialogTitle>
+                    </DialogHeader>
+                        <Input type="text" className='mt-4' placeholder="Enter UserName" />
+                        <Input type="text" className='mt-4 mb-4' placeholder="Enter Password" />
+                        <Button>Login</Button>
+                    </DialogContent>
+                </Dialog>
+            </div>
             <div className="flex flex-row items-center">
                 <div className="basis-4/6">
                     <p className='text-9xl  font-serif text-center'>ANTI-TESS</p>
