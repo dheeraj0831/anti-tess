@@ -1,14 +1,17 @@
 // const { JWT_SECERT } = require("../config");
 import dotenv from "dotenv";
 dotenv.config();
-const jwt = require("jsonwebtoken");
-const  authMiddleware = (req, res, next) => {
+// const jwt = require("jsonwebtoken");
+import jwt from 'jsonwebtoken';
+const { sign, verify } = jwt;
+
+const authMiddleware = (req, res, next) => {
     const JWT_SECERT = process.env.JWT_SECERT
     console.log(JWT_SECERT)
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(403).json({msg: "please check your login credentials"});
+        return res.status(403).json({ msg: "please check your login credentials" });
     }
 
     const token = authHeader.split(' ')[1];
@@ -24,6 +27,4 @@ const  authMiddleware = (req, res, next) => {
     }
 }
 
-export default { 
-    authMiddleware
-};
+export default authMiddleware

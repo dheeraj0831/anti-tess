@@ -44,7 +44,7 @@ app.post("/api/signin", async (req, res) => {
   if (user) {
     const token = sign(
       {
-        userId: user._id,
+        userId: user.username,
       },
       process.env.JWT_SECERT
     );
@@ -72,7 +72,7 @@ app.post("/api/problems", async (req, res) => {
   }
 });
 
-app.put("/api/approve", async (req, res) => {
+app.put("/api/approve", authMiddleware, async (req, res) => {
   const { imageUrl, approval } = req.body;
   try {
     await Problem.findOneAndUpdate({ imageUrl }, { status: approval });
@@ -82,7 +82,7 @@ app.put("/api/approve", async (req, res) => {
   }
 });
 
-app.get("/api/approve-problems", async (req, res) => {
+app.get("/api/approve-problems", authMiddleware, async (req, res) => {
   const problems = await Problem.find({ status: "default" });
   res.json(problems);
   // res.json({ message: "Approve Problems" });
