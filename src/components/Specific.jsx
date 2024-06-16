@@ -33,6 +33,7 @@ export default function Specific({ name, rollno, section, imageUrl, description,
         if (response.status == 200) {
             setChanged(true);
         }
+        window.location.reload();
     }
 
     return (
