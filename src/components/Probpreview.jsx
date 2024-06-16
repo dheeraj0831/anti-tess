@@ -11,7 +11,7 @@ import Specific from "./Specific"
 
 const Probpreview = ({ problem, user }) => {
 
-    const { studentName, rollno, section, imageUrl, description } = problem
+    const { studentName, rollno, section, imageUrl, description, subject } = problem
     const shortDesc = description.substring(0, 50) + "..."
 
     return (
@@ -26,7 +26,7 @@ const Probpreview = ({ problem, user }) => {
             </CardContent>
             <CardFooter >
                 {/* <p className="w-full">{desc}</p> */}
-                <Specific name={studentName} rollno={rollno} section={section} imageUrl={imageUrl} description={description} user={user} />
+                <Specific name={studentName} rollno={rollno} section={section} subject={subject} imageUrl={imageUrl} description={description} user={user} />
             </CardFooter>
         </Card>
 

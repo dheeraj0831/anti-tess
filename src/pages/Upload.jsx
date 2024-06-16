@@ -10,12 +10,9 @@ const Upload = () => {
   const location = useLocation();
   const st = location.state || {};
   const state = useRef(st);
-  console.log(state);
-
 
   useEffect(() => {
     // When the component mounts, add one initial problem
-    console.log("Effecter")
     setProblems([
       {
         subject: "",
@@ -33,10 +30,12 @@ const Upload = () => {
 
   const [problems, setProblems] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to track whether form is currently submitting or not
 
   const isCurrentProblemComplete = () => {
     const currentProblem = problems[problems.length - 1];
-    return (problems.length == 0 ||
+    return (
+      problems.length === 0 ||
       (currentProblem.subject &&
         currentProblem.unitTest &&
         currentProblem.description &&
@@ -57,14 +56,13 @@ const Upload = () => {
       status: "default",
     };
     setProblems([...problems, newProblem]);
-    // console.log(state)
   };
 
   const handleChange = (index, name, value) => {
     const newProblems = [...problems];
     newProblems[index] = {
       ...newProblems[index],
-      [name]: value
+      [name]: value,
     };
     setProblems(newProblems);
   };
@@ -73,10 +71,11 @@ const Upload = () => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", import.meta.env.VITE_CLOUD_PRESET); // Replace with your Cloudinary upload preset
-    console.log(formData.get("file"));
+
     try {
       const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME
+        }/image/upload`,
         formData
       );
       return response.data.secure_url; // This is the URL of the uploaded image
@@ -88,7 +87,10 @@ const Upload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(problems)
+
+    // Set isSubmitting to true when form submission starts
+    setIsSubmitting(true);
+
     const updatedProblems = await Promise.all(
       problems.map(async (problem) => {
         if (problem.imageFile) {
@@ -108,14 +110,21 @@ const Upload = () => {
       setSubmitted(true);
     } catch (error) {
       console.error("Error submitting problems:", error);
+    } finally {
+      // Reset isSubmitting to false when form submission completes
+      setIsSubmitting(false);
     }
   };
-
 
   return (
     <div className="flex flex-col mx-10 my-2 items-center">
       {problems.map((problem, index) => (
-        <Problem key={index} idx={index} handleChange={handleChange} isSubmitted={submitted} />
+        <Problem
+          key={index}
+          idx={index}
+          handleChange={handleChange}
+          isSubmitted={submitted}
+        />
       ))}
       {submitted ? (
         <Alert className="mx-10 mt-5 w-full max-w-4xl">
@@ -127,11 +136,20 @@ const Upload = () => {
         </Alert>
       ) : (
         <div className="w-full max-w-4xl mx-auto flex items-between gap-5 mt-5 mb-10">
-          <Button variant="destructive" disabled={!isCurrentProblemComplete()} onClick={addProblem} className="w-full">
+          <Button
+            variant="destructive"
+            disabled={!isCurrentProblemComplete()}
+            onClick={addProblem}
+            className="w-full"
+          >
             Add Problem
           </Button>
-          <Button disabled={!isCurrentProblemComplete()} onClick={handleSubmit} className="w-full">
-            Submit
+          <Button
+            disabled={!isCurrentProblemComplete() || isSubmitting} // Disable button when submitting
+            onClick={handleSubmit}
+            className="w-full"
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </div>
       )}

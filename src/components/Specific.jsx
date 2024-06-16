@@ -16,7 +16,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { useState } from 'react'
-export default function Specific({ name, rollno, section, imageUrl, description, user }) {
+export default function Specific({ name, rollno, section, imageUrl, description, subject, user }) {
     const [changed, setChanged] = useState(false);
     const handleCLick = async (action) => {
         const response = await axios({
@@ -49,10 +49,11 @@ export default function Specific({ name, rollno, section, imageUrl, description,
                             <CardDescription className="flex justiy-evenly gap-5">
                                 {rollno}
                                 <Badge variant="secondary">{section}</Badge>
+                                <Badge variant="secondary">{subject}</Badge>
                             </CardDescription>
                         </CardHeader>
                         <CardContent className='flex flex-col items-center gap-5'>
-                            <img className="w-full max-h-96" src={imageUrl} alt={rollno} />
+                            <img className="w-full max-h-[28rem]" src={imageUrl} alt={rollno} />
                             {description}
                         </CardContent>
                         <CardFooter className='flex justify-evenly'>
