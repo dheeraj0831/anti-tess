@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import axios from 'axios'
-import Footer from './Footer'
 
 const Navbar = () => {
     const navigate = useNavigate();
