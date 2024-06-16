@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -27,7 +26,6 @@ import { useNavigate } from 'react-router-dom'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -51,8 +49,6 @@ export default function Landing() {
         e.preventDefault();
         const studentName = nameRef.current.value;
         const rollno = rollRef.current.value;
-        // const section = secRef.current.value;
-        // console.log(section)
         navigate('/upload', { state: { studentName, rollno, section } });
     }
     const handleLogin = async () => {
@@ -60,8 +56,9 @@ export default function Landing() {
         const pass = passRef.current.value;
 
         try {
+            console.log("log")
             const res = await axios({
-                url: "",
+                url: "http://localhost:3000/api/signin",
                 method: "post",
                 data: {
                     username: userName,
