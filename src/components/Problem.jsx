@@ -54,9 +54,9 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
                         <Button
                             type="button"
                             className="w-full bg-gray-500 text-black"
-                            disabled={isSubmitted}
+                        // disabled={isSubmitted}
                         >
-                            Choose File
+
                         </Button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
                     <img
                         src={imagePreview}
                         alt="Selected Preview"
-                        className="mt-4 max-h-96 w-full"
+                        className="max-h-96 w-full my-4"
                     />
                 )}
                 <div className="flex w-full gap-4 mb-5 items-between">
