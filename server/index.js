@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import Problem from "./model/problem.js";
-import User from './model/user.js';
+import User from "./model/user.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { authMiddleware } from "./middleware.js";
@@ -24,26 +24,28 @@ mongoose
     console.log(err);
   });
 
-  app.post("/signin", async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.pass;
+app.post("/signin", async (req, res) => {
+  const username = req.body.username;
+  const pass = req.body.password;
 
-    const user = await User.findOne({
-        username: username,
-        password: pass
+  const user = await User.findOne({
+    username: username,
+    password: pass,
+  });
+
+  if (user) {
+    const token = jwt.sign(
+      {
+        userId: user._id,
+      },
+      JWT_SECERT
+    );
+    res.json({
+      token: token,
     });
-
-    if (user) {
-        const token = jwt.sign({
-            userId: user._id
-        }, JWT_SECERT);
-        res.json({
-            token: token
-        })
-        return;
-    }
+    return;
   }
-  )
+});
 
 app.post("/api/problems", async (req, res) => {
   const { subject, unitTest, description, imageUrl, rollno, section, status } =
