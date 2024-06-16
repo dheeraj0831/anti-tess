@@ -24,6 +24,7 @@ import {
 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Footer } from 'react-day-picker'
 
 
 export default function Landing() {
@@ -88,6 +89,7 @@ export default function Landing() {
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+            <Footer />
         </>
     )
 }

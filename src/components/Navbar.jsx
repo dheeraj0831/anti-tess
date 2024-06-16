@@ -85,7 +85,6 @@ const Navbar = () => {
                     </div>
                 </nav>
                 <Outlet />
-                <Footer />
             </div>
         </>
     )
