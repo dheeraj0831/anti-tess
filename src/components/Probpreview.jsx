@@ -9,7 +9,7 @@ import {
 import Specific from "./Specific"
 
 
-const Probpreview = ({ imageUrl, name, rollno, section, desc }) => {
+const Probpreview = ({ imageUrl, name, rollno, section, desc ,user}) => {
 
     const shortDesc = desc.substring(0, 100) + "..."
 
@@ -25,7 +25,7 @@ const Probpreview = ({ imageUrl, name, rollno, section, desc }) => {
             </CardContent>
             <CardFooter >
                 {/* <p className="w-full">{desc}</p> */}
-                <Specific name={name} rollno={rollno} section={section} imageUrl={imageUrl} description={desc} />
+                <Specific name={name} rollno={rollno} section={section} imageUrl={imageUrl} description={desc} user={user}/>
             </CardFooter>
         </Card>
 

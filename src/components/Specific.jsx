@@ -14,7 +14,9 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-export default function Specific({ name, rollno, section, imageUrl, description }) {
+export default function Specific({ name, rollno, section, imageUrl, description ,user}) {
+    // const user = user;
+    console.log(user);
     return (
         <>
             <Dialog>
@@ -35,8 +37,14 @@ export default function Specific({ name, rollno, section, imageUrl, description 
                             {description}
                         </CardContent>
                         <CardFooter className='flex justify-evenly'>
+                            {user &&(
+                                <>
                             <Button className='w-1/3 bg-slate-700 hover:bg-green-600'>Approve</Button>
                             <Button className='w-1/3'>Reject</Button>
+                            </>
+                            )
+                            }
+                            
                         </CardFooter>
                     </Card>
                 </DialogContent>
