@@ -21,7 +21,7 @@ const Upload = () => {
         imageUrl: "",
         rollno: state.rollno || "not mentioned",
         section: state.section || "not mentioned",
-        studentName: state.name || "not mentioned",
+        studentName: state.studentName || "not mentioned",
         status: "default",
       },
     ]);
@@ -56,6 +56,10 @@ const Upload = () => {
     // console.log("New Problems:", newProblems);
     setProblems(newProblems);
   };
+
+  const addToCloudinary = async (file) => {
+
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
