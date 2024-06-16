@@ -57,7 +57,7 @@ export default function Landing() {
                         <CardContent>
                             <form onSubmit={handleSubmit}>
                                 <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef} required />
-                                <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef} required />
+                                <Input type="text" className='mt-4 mb-4' pattern="^2[12][Bb][Dd][a-zA-Z0-9]{6}$" placeholder="Enter Roll no" ref={rollRef} required />
                                 <Select className="w-full mb-4" onValueChange={handleSectionChange} required>
                                     <SelectTrigger >
                                         <SelectValue placeholder="Section" />

@@ -15,6 +15,7 @@ const Upload = () => {
 
   useEffect(() => {
     // When the component mounts, add one initial problem
+    console.log("Effecter")
     setProblems([
       {
         subject: "",
@@ -32,6 +33,16 @@ const Upload = () => {
 
   const [problems, setProblems] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+
+  const isCurrentProblemComplete = () => {
+    const currentProblem = problems[problems.length - 1];
+    return (problems.length == 0 ||
+      (currentProblem.subject &&
+        currentProblem.unitTest &&
+        currentProblem.description &&
+        currentProblem.imageFile)
+    );
+  };
 
   const addProblem = () => {
     const newProblem = {
@@ -116,10 +127,10 @@ const Upload = () => {
         </Alert>
       ) : (
         <div className="w-full max-w-4xl mx-auto flex items-between gap-5 mt-5 mb-10">
-          <Button variant="destructive" onClick={addProblem} className="w-full">
+          <Button variant="destructive" disabled={!isCurrentProblemComplete()} onClick={addProblem} className="w-full">
             Add Problem
           </Button>
-          <Button onClick={handleSubmit} className="w-full">
+          <Button disabled={!isCurrentProblemComplete()} onClick={handleSubmit} className="w-full">
             Submit
           </Button>
         </div>
