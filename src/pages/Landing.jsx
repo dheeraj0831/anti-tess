@@ -70,7 +70,7 @@ export default function Landing() {
             });
             const jwtToken = res.data.token;
             localStorage.setItem("token", jwtToken);
-            nav("/all-issues");
+            navigate("/all-issues");
         }
         catch {
 
