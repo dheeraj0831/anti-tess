@@ -65,7 +65,7 @@ const Navbar = () => {
     return (
         <>
             <nav className='dark px-4 py-4 flex items-center justify-between sticky'>
-                <Link to="/" className=' text-xl font-bold'>Student Issues</Link>
+                <Link to="/" className=' text-xl font-bold'>Siksha Sahayak</Link>
                 <div className='flex items-center gap-16'>
                     <Link to='/all-issues' className=' hover:text-gray-300'>All Issues</Link>
                     {!user ? (

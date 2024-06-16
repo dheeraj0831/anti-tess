@@ -47,7 +47,7 @@ export default function Landing() {
 
             <div className="flex flex-row items-center">
                 <div className="basis-4/6">
-                    <p className='text-9xl font-serif font-medium text-center'>ANTI-TESS</p>
+                    <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
                 </div>
                 <div className='basis-2/6 py-20'>
                     <Card className='mr-10'>
