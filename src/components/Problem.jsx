@@ -83,6 +83,9 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
                             <SelectItem value="ai-tech-and-appl">AI Technologies and Applications</SelectItem>
                             <SelectItem value="nlp-using-transformers">NLP using Transformers</SelectItem>
                             <SelectItem value="data-mining">Data Mining</SelectItem>
+                            <SelectItem value="aws">Intro to AWS</SelectItem>
+                            <SelectItem value="web-technologies">Web Technologies</SelectItem>
+                            <SelectItem value="ds-and-security">Managing DS and Security</SelectItem>
                         </SelectContent>
                     </Select>
                     <Select className="w-full" onValueChange={(value) => handleChange(idx, "unitTest", value)} disabled={isSubmitted}>
