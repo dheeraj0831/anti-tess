@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "server to store the backend of \"Anti-Tess\"",
+  "description": "server to store the backend of \"Siksha Sahayak\"",
   "main": "index.js",
   "type": "module",
   "scripts": {
