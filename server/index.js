@@ -85,13 +85,11 @@ app.put("/api/approve", authMiddleware, async (req, res) => {
 app.get("/api/approve-problems", authMiddleware, async (req, res) => {
   const problems = await Problem.find({ status: "default" });
   res.json(problems);
-  // res.json({ message: "Approve Problems" });
 });
 
 app.get("/api/issues", async (req, res) => {
   const problems = await Problem.find({ status: "approved" });
   res.json(problems);
-  // res.json({ message: "Issues" });
 });
 
 app.listen(PORT, () => {

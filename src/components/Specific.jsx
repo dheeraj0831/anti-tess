@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {
     Dialog,
     DialogContent,
@@ -14,9 +15,26 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { useState } from 'react'
 export default function Specific({ name, rollno, section, imageUrl, description ,user}) {
-    // const user = user;
-    console.log(user);
+    const [changed,setChanged] = useState(false); 
+    const handleCLick = async (action) =>{
+        const response = await axios({
+            url: "http://localhost:3000/api/approve",
+            method: "put",
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            },
+            data: {
+                imageUrl: imageUrl,
+                approval: action
+            }
+        });
+        if(response.status==200){
+            setChanged(true);
+        }
+    }
+    
     return (
         <>
             <Dialog>
@@ -38,9 +56,9 @@ export default function Specific({ name, rollno, section, imageUrl, description 
                         </CardContent>
                         <CardFooter className='flex justify-evenly'>
                             {user &&(
-                                <>
-                            <Button className='w-1/3 bg-slate-700 hover:bg-green-600'>Approve</Button>
-                            <Button className='w-1/3'>Reject</Button>
+                            <>
+                            <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={()=>handleCLick('approved') } disabled={changed}>Approve</Button>
+                            <Button className='w-1/3' onClick={()=>handleCLick('rejected') } disabled={changed}>Reject</Button>
                             </>
                             )
                             }
