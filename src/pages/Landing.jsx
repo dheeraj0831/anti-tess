@@ -46,9 +46,7 @@ export default function Landing() {
         <>
 
             <div className="flex flex-row max-sm:flex-col items-center gap-5 my-0">
-                <div className="basis-4/6">
-                    <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
-                </div>
+                <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
                 <div className='basis-2/6 py-8'>
                     <Card className='mr-10'>
                         <CardHeader>
@@ -84,7 +82,7 @@ export default function Landing() {
                 <AccordionItem value='item-2'>
                     <AccordionTrigger>What activities are involved on this platform?</AccordionTrigger>
                     <AccordionContent>
-                        On this platform, users are encouraged to upload screenshots of Tessaracts assessments, along with any grievances or concerns regarding the evaluation process.
+                        On this platform, students are encouraged to upload screenshots of Tessaracts assessments, along with any grievances or concerns regarding the evaluation process.
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
