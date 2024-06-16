@@ -45,7 +45,7 @@ export default function Landing() {
     return (
         <>
 
-            <div className="flex flex-row items-center my-0">
+            <div className="flex flex-row sm:flex-col items-center gap-5 my-0">
                 <div className="basis-4/6">
                     <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
                 </div>
