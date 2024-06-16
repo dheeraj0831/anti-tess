@@ -26,7 +26,7 @@ const Allatone = () => {
   const getAllIssues = async () => {
     if (user) {
       const response = await axios({
-        url: "http://localhost:3000/api/approve",
+        url: `${import.meta.env.VITE_SERVER_URL}/api/approve`,
         method: "get",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
@@ -35,7 +35,7 @@ const Allatone = () => {
       console.log(response.data);
       setProblems(response.data);
     } else {
-      const response = await axios.get("http://localhost:3000/api/issues");
+      const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/issues`);
       console.log(response.data);
       setProblems(response.data);
     }

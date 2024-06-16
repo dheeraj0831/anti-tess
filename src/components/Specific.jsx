@@ -20,7 +20,7 @@ export default function Specific({ name, rollno, section, imageUrl, description,
     const [changed, setChanged] = useState(false);
     const handleCLick = async (action) => {
         const response = await axios({
-            url: "http://localhost:3000/api/approve",
+            url: `${import.meta.env.VITE_SERVER_URL}/api/approve`,
             method: "put",
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")

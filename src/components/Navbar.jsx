@@ -41,7 +41,7 @@ const Navbar = () => {
         try {
             console.log("log")
             const res = await axios({
-                url: "http://localhost:3000/api/signin",
+                url: `${import.meta.env.VITE_SERVER_URL}/api/signin`,
                 method: "post",
                 data: {
                     username: userName,
@@ -79,7 +79,7 @@ const Navbar = () => {
                                     <DialogTitle>This is for Verifiers Only</DialogTitle>
                                 </DialogHeader>
                                 <Input type="text" className='mt-4' placeholder="Enter UserName" ref={userNameRef} />
-                                <Input type="text" className='mt-4 mb-4' placeholder="Enter Password" ref={passRef} />
+                                <Input type="password" className='mt-4 mb-4' placeholder="Enter Password" ref={passRef} />
                                 <Button onClick={handleLogin}>Login</Button>
                             </DialogContent>
                         </Dialog>
