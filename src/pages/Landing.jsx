@@ -45,7 +45,7 @@ export default function Landing() {
     return (
         <>
 
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center my-0">
                 <div className="basis-4/6">
                     <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
                 </div>
@@ -74,23 +74,20 @@ export default function Landing() {
 
                 </div>
             </div>
-            <div>
-                <Accordion type="single" collapsible className='mx-10'>
-                    <AccordionItem value="item-1">
-                        <AccordionTrigger>What is this for?</AccordionTrigger>
-                        <AccordionContent>
-                            This platform is to bring all the faults in the Tessaracts evaluation engine to the management of the college
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value='item-2'>
-                        <AccordionTrigger>What exactly will you be doing on this platform</AccordionTrigger>
-                        <AccordionContent>
-                            You will be uploading screen-shots of all the evaluations of the tessaracts asesments along with the grievences with that particular evaluation
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-
-            </div>
+            <Accordion type="single" collapsible className=' mx-36 my-4'>
+                <AccordionItem value="item-1">
+                    <AccordionTrigger>What is the purpose of this platform?</AccordionTrigger>
+                    <AccordionContent>
+                        This platform aims to facilitate reporting of any issues encountered with the Tessaracts evaluation engine to the college management.
+                    </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value='item-2'>
+                    <AccordionTrigger>What activities are involved on this platform?</AccordionTrigger>
+                    <AccordionContent>
+                        On this platform, users are encouraged to upload screenshots of Tessaracts assessments, along with any grievances or concerns regarding the evaluation process.
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
         </>
     )
 }

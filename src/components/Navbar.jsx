@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import axios from 'axios'
+import Footer from './Footer'
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -85,7 +86,7 @@ const Navbar = () => {
                         </Dialog>
                     ) : (<Button onClick={handleLogout}>Logout</Button>)}
                 </div>
-            </nav><Outlet />
+            </nav><Outlet /><Footer />
         </>
     )
 }
