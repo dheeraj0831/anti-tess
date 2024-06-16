@@ -41,13 +41,9 @@ const Navbar = () => {
 
         try {
             console.log("log")
-            const res = await axios({
-                url: `${import.meta.env.VITE_SERVER_URL}/api/signin`,
-                method: "post",
-                data: {
-                    username: userName,
-                    password: pass
-                }
+            const res = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/signin`, {
+                username: userName,
+                password: pass
             });
             const jwtToken = res.data.token;
             localStorage.setItem("token", jwtToken);
