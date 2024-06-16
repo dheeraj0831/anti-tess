@@ -49,7 +49,7 @@ export default function Landing() {
                 <div className="basis-4/6">
                     <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
                 </div>
-                <div className='basis-2/6 py-20'>
+                <div className='basis-2/6 py-8'>
                     <Card className='mr-10'>
                         <CardHeader>
                             <CardTitle>Enter Your Details</CardTitle>
