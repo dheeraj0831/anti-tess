@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
@@ -8,7 +8,10 @@ import axios from "axios";
 
 const Upload = () => {
   const location = useLocation();
-  const state = location.state || {};
+  const st = location.state || {};
+  const state = useRef(st);
+  console.log(state);
+
 
   useEffect(() => {
     // When the component mounts, add one initial problem
@@ -19,9 +22,9 @@ const Upload = () => {
         description: "",
         imageUrl: "",
         imageFile: null,
-        rollno: state.rollno || "not mentioned",
-        section: state.section || "not mentioned",
-        studentName: state.studentName || "not mentioned",
+        rollno: state.current.rollno || "not mentioned",
+        section: state.current.section || "not mentioned",
+        studentName: state.current.studentName || "not mentioned",
         status: "default",
       },
     ]);
@@ -37,12 +40,13 @@ const Upload = () => {
       description: "",
       imageUrl: "",
       imageFile: null,
-      rollno: state.rollno || "not mentioned",
-      section: state.section || "not mentioned",
-      studentName: state.name || "not mentioned",
+      rollno: state.current.rollno || "not mentioned",
+      section: state.current.section || "not mentioned",
+      studentName: state.current.studentName || "not mentioned",
       status: "default",
     };
     setProblems([...problems, newProblem]);
+    // console.log(state)
   };
 
   const handleChange = (index, name, value) => {
@@ -73,6 +77,7 @@ const Upload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(problems)
     const updatedProblems = await Promise.all(
       problems.map(async (problem) => {
         if (problem.imageFile) {

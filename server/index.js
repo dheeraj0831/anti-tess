@@ -5,6 +5,7 @@ import Problem from "./model/problem.js";
 import User from "./model/user.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import authMiddleware from "./middleware.js";
 const { sign, verify } = jwt;
 dotenv.config();
 
@@ -29,7 +30,6 @@ app.post("/api/signup", async (req, res) => {
   const password = req.body.password;
   const user = new User({ username, password });
   const result = await user.save();
-  console.log(result);
   res.json(result);
 });
 app.post("/api/signin", async (req, res) => {
@@ -40,7 +40,6 @@ app.post("/api/signin", async (req, res) => {
     username: username,
     password: pass,
   });
-  console.log(user);
   if (user) {
     const token = sign(
       {
@@ -48,7 +47,6 @@ app.post("/api/signin", async (req, res) => {
       },
       process.env.JWT_SECERT
     );
-    console.log(token);
     res.json({
       token: token,
     });
@@ -60,7 +58,6 @@ app.post("/api/problems", async (req, res) => {
   try {
     // Extract problem data from the request body
     const problemsData = req.body;
-    console.log(problemsData);
     // Save each problem to the database
     const savedProblems = await Problem.insertMany(problemsData);
 
@@ -82,7 +79,7 @@ app.put("/api/approve", authMiddleware, async (req, res) => {
   }
 });
 
-app.get("/api/approve-problems", authMiddleware, async (req, res) => {
+app.get("/api/approve", authMiddleware, async (req, res) => {
   const problems = await Problem.find({ status: "default" });
   res.json(problems);
 });

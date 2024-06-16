@@ -1,31 +1,63 @@
 import Probpreview from '@/components/Probpreview'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Allatone = () => {
   // const decider  = true
   const token = localStorage.getItem('token');
   let user = null
-    
+
+  const [problems, setProblems] = useState([]);
+
 
   function parseJwt(token) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 
     return JSON.parse(jsonPayload);
-}
-  if(token){
-  user = parseJwt(token);
   }
- 
+  if (token) {
+    user = parseJwt(token);
+  }
+
+  const getAllIssues = async () => {
+    if (user) {
+      const response = await axios({
+        url: "http://localhost:3000/api/approve",
+        method: "get",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      })
+      console.log(response.data);
+      setProblems(response.data);
+    } else {
+      const response = await axios.get("http://localhost:3000/api/issues");
+      console.log(response.data);
+      setProblems(response.data);
+    }
+  }
+
+  useEffect(() => {
+    getAllIssues();
+  }
+    , [])
+
+
 
   return (
-    <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-      <Probpreview imageUrl="https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/image8-2.jpg?width=595&height=400&name=image8-2.jpg" name="Sanjay" rollno="21BD1A0503" section="FS-ELITE" desc="
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, voluptatibus sit reprehenderit mollitia laudantium ad corrupti animi facilis vero, doloremque totam maiores optio sunt neque id? Porro dolore maiores perspiciatis aut excepturi hic voluptatum? Eos sapiente dolor blanditiis minima, ipsa ducimus. Vitae omnis et eius minima, perspiciatis quos doloremque aliquam!"  user={user}/>
-    </div>
+    <>
+      {
+        problems.length ? (<div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+          {problems.map((problem) => (
+            <Probpreview key={problem._id} problem={problem} user={user} />
+          ))
+          }
+        </div>) : (<h1 className='text-4xl text-center mt-20'>No Issues to Show</h1>)
+      }</>
   )
 }
 

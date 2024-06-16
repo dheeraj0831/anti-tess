@@ -9,23 +9,24 @@ import {
 import Specific from "./Specific"
 
 
-const Probpreview = ({ imageUrl, name, rollno, section, desc ,user}) => {
+const Probpreview = ({ problem, user }) => {
 
-    const shortDesc = desc.substring(0, 100) + "..."
+    const { studentName, rollno, section, imageUrl, description } = problem
+    const shortDesc = description.substring(0, 50) + "..."
 
     return (
         <Card className="w-full">
             <CardHeader>
-                <CardTitle>{name}</CardTitle>
+                <CardTitle>{studentName}</CardTitle>
                 <CardDescription>{section}</CardDescription>
             </CardHeader>
             <CardContent>
-                <img src={imageUrl} alt={rollno} className="w-full" />
+                <img src={imageUrl} alt={rollno} className="w-full h-32" />
                 {shortDesc}
             </CardContent>
             <CardFooter >
                 {/* <p className="w-full">{desc}</p> */}
-                <Specific name={name} rollno={rollno} section={section} imageUrl={imageUrl} description={desc} user={user}/>
+                <Specific name={studentName} rollno={rollno} section={section} imageUrl={imageUrl} description={description} user={user} />
             </CardFooter>
         </Card>
 
