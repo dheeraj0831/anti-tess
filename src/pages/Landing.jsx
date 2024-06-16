@@ -36,12 +36,13 @@ export default function Landing() {
     };
 
 
-    const handleSubmit = () => {
-        const name = nameRef.current.value;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const studentName = nameRef.current.value;
         const rollno = rollRef.current.value;
         // const section = secRef.current.value;
         // console.log(section)
-        navigate('/upload', { state: { name, rollno, section } });
+        navigate('/upload', { state: { studentName, rollno, section } });
     }
     return (
         <>
@@ -55,21 +56,21 @@ export default function Landing() {
                             <CardTitle>Enter Your Details</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef} />
-                            <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef} />
-                            <Select className="w-full" onValueChange={handleSectionChange}>
-                                <SelectTrigger >
-                                    <SelectValue placeholder="Section" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="fs-elite">FS-ELITE</SelectItem>
-                                    <SelectItem value="fs-a1" >FS-A1</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <form onSubmit={handleSubmit}>
+                                <Input type="text" className='mt-4' placeholder="Enter Name" ref={nameRef} required />
+                                <Input type="text" className='mt-4 mb-4' placeholder="Enter Roll no" ref={rollRef} required />
+                                <Select className="w-full mb-4" onValueChange={handleSectionChange} required>
+                                    <SelectTrigger >
+                                        <SelectValue placeholder="Section" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="fs-elite">FS-ELITE</SelectItem>
+                                        <SelectItem value="fs-a1" >FS-A1</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <Button className="mt-4" type="submit">Submit</Button>
+                            </form>
                         </CardContent>
-                        <CardFooter>
-                            <Button onClick={handleSubmit}>Submit</Button>
-                        </CardFooter>
                     </Card>
 
                 </div>
