@@ -4,7 +4,7 @@ import cors from "cors";
 import Problem from "./model/problem.js";
 import User from "./model/user.js";
 import dotenv from "dotenv";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 const { sign, verify } = jwt;
 dotenv.config();
 
@@ -23,24 +23,22 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-app.post("/api/signup",async (req,res)=>{
+app.post("/api/signup", async (req, res) => {
   // console.log(req);
   const username = req.body.username;
   const password = req.body.password;
-  const user = new User({username,password})
+  const user = new User({ username, password });
   const result = await user.save();
   console.log(result);
   res.json(result);
-
-})
+});
 app.post("/api/signin", async (req, res) => {
-  
   const username = req.body.username;
   const pass = req.body.password;
-  console.log(username,pass);
+  console.log(username, pass);
   const user = await User.findOne({
     username: username,
-    password: pass
+    password: pass,
   });
   console.log(user);
   if (user) {
@@ -50,7 +48,7 @@ app.post("/api/signin", async (req, res) => {
       },
       process.env.JWT_SECERT
     );
-    console.log(token)
+    console.log(token);
     res.json({
       token: token,
     });
@@ -59,19 +57,19 @@ app.post("/api/signin", async (req, res) => {
 });
 
 app.post("/api/problems", async (req, res) => {
-  const { subject, unitTest, description, imageUrl, rollno, section, status } =
-    req.body;
-  const problem = new Problem({
-    subject,
-    unitTest,
-    description,
-    imageUrl,
-    rollno,
-    section,
-    status,
-  });
-  await problem.save();
-  res.json(problem);
+  try {
+    // Extract problem data from the request body
+    const problemsData = req.body;
+    console.log(problemsData);
+    // Save each problem to the database
+    const savedProblems = await Problem.insertMany(problemsData);
+
+    // Respond with the saved problems
+    res.status(201).json(savedProblems);
+  } catch (error) {
+    console.error("Error saving problems:", error);
+    res.status(500).json({ error: "An internal server error occurred" });
+  }
 });
 
 app.put("/api/approve", async (req, res) => {

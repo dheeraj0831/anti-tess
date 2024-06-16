@@ -26,10 +26,12 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreview(reader.result);
+                handleChange(idx, "imageFile", file);  // Pass the file object to the parent component
             };
             reader.readAsDataURL(file);
         } else {
             setImagePreview(null);
+            handleChange(idx, "imageFile", null);  // Pass null if no file is selected
         }
     };
 
@@ -54,9 +56,8 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
                         <Button
                             type="button"
                             className="w-full bg-gray-500 text-black"
-                        // disabled={isSubmitted}
                         >
-
+                            Upload Picture
                         </Button>
                     </div>
                 </div>
@@ -85,7 +86,7 @@ const Problem = ({ idx, handleChange, isSubmitted }) => {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="unit-test-1">Unit Test 1</SelectItem>
-                            <SelectItem value="unit-test-2">Unit Test 2</SelectItem>
+                            <SelectItem value="unit-test-3">Unit Test 3</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

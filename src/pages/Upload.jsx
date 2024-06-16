@@ -4,14 +4,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import Problem from "@/components/Problem";
+import axios from "axios";
 
 const Upload = () => {
   const location = useLocation();
   const state = location.state || {};
 
   useEffect(() => {
-    // console.log("in upload");
-    // console.log(state);
     // When the component mounts, add one initial problem
     setProblems([
       {
@@ -19,6 +18,7 @@ const Upload = () => {
         unitTest: "",
         description: "",
         imageUrl: "",
+        imageFile: null,
         rollno: state.rollno || "not mentioned",
         section: state.section || "not mentioned",
         studentName: state.studentName || "not mentioned",
@@ -36,6 +36,7 @@ const Upload = () => {
       unitTest: "",
       description: "",
       imageUrl: "",
+      imageFile: null,
       rollno: state.rollno || "not mentioned",
       section: state.section || "not mentioned",
       studentName: state.name || "not mentioned",
@@ -45,27 +46,55 @@ const Upload = () => {
   };
 
   const handleChange = (index, name, value) => {
-    // console.log("Index:", index);
-    // console.log("Name:", name);
-    // console.log("Value:", value);
     const newProblems = [...problems];
     newProblems[index] = {
       ...newProblems[index],
       [name]: value
     };
-    // console.log("New Problems:", newProblems);
     setProblems(newProblems);
   };
 
   const addToCloudinary = async (file) => {
-
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Problems:", problems);
-    setSubmitted(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", import.meta.env.VITE_CLOUD_PRESET); // Replace with your Cloudinary upload preset
+    console.log(formData.get("file"));
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`,
+        formData
+      );
+      return response.data.secure_url; // This is the URL of the uploaded image
+    } catch (error) {
+      console.error("Error uploading to Cloudinary:", error);
+      return null;
+    }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedProblems = await Promise.all(
+      problems.map(async (problem) => {
+        if (problem.imageFile) {
+          const imageUrl = await addToCloudinary(problem.imageFile);
+          return { ...problem, imageUrl };
+        }
+        return problem;
+      })
+    );
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/problems`,
+        updatedProblems
+      );
+      console.log("Server Response:", response.data);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting problems:", error);
+    }
+  };
+
 
   return (
     <div className="flex flex-col mx-10 my-2 items-center">
