@@ -101,8 +101,6 @@ const Allatone = () => {
                 key={problem._id}
                 problem={problem}
                 user={user}
-                onStatusChange={handleStatusChange}
-                onClose={() => setDialogOpen(false)}
               />
             ))}
           </div>
