@@ -61,49 +61,76 @@ const Allatone = () => {
               <TabsTrigger className="h-9" value="rejected">Rejected</TabsTrigger>
             </TabsList>
             <TabsContent value="default">
-              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-                {filterProblemsByStatus("default").map((problem) => (
-                  <Probpreview
-                    key={problem._id}
-                    problem={problem}
-                    user={user}
-                  />
-                ))}
-              </div>
+              {(() => {
+                const pendingProblems = filterProblemsByStatus("default");
+                return (
+                  <>
+                    <p className='text-lg mx-12 my-3'>Number of Issues Pending: {pendingProblems.length}</p>
+                    <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      {pendingProblems.map((problem) => (
+                        <Probpreview
+                          key={problem._id}
+                          problem={problem}
+                          user={user}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </TabsContent>
             <TabsContent value="approved">
-              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-                {filterProblemsByStatus("approved").map((problem) => (
-                  <Probpreview
-                    key={problem._id}
-                    problem={problem}
-                    user={user}
-                  />
-                ))}
-              </div>
+              {(() => {
+                const approvedProblems = filterProblemsByStatus("approved");
+                return (
+                  <>
+                    <p className='text-lg mx-12 my-3'>Number of Issues Approved: {approvedProblems.length}</p>
+                    <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      {approvedProblems.map((problem) => (
+                        <Probpreview
+                          key={problem._id}
+                          problem={problem}
+                          user={user}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </TabsContent>
             <TabsContent value="rejected">
-              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-                {filterProblemsByStatus("rejected").map((problem) => (
-                  <Probpreview
-                    key={problem._id}
-                    problem={problem}
-                    user={user}
-                  />
-                ))}
-              </div>
+              {(() => {
+                const rejectedProblems = filterProblemsByStatus("rejected");
+                return (
+                  <>
+                    <p className='text-lg mx-12 my-3'>Number of Issues Rejected: {rejectedProblems.length}</p>
+                    <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      {rejectedProblems.map((problem) => (
+                        <Probpreview
+                          key={problem._id}
+                          problem={problem}
+                          user={user}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              })()}
             </TabsContent>
           </Tabs>
         ) : (
-          <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-            {problems.map((problem) => (
-              <Probpreview
-                key={problem._id}
-                problem={problem}
-                user={user}
-              />
-            ))}
-          </div>
+          <>
+            <p className='text-lg mx-12 my-3'>Number of Issues raised: {problems.length}</p>
+            <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+              {problems.map((problem) => (
+                <Probpreview
+                  key={problem._id}
+                  problem={problem}
+                  user={user}
+                />
+              ))}
+            </div>
+          </>
         )
       ) : (
         <h1 className='text-4xl text-center mt-20'>No Issues to Show</h1>

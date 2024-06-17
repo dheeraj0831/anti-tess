@@ -131,7 +131,7 @@ const Upload = () => {
           <Terminal className="h-4 w-4" />
           <AlertTitle>Thank You!</AlertTitle>
           <AlertDescription>
-            This will be submitted to the Academic Director as a proof
+            This will be verified by your CRs and submitted to the Academic Director as a proof
           </AlertDescription>
         </Alert>
       ) : (
