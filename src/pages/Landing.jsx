@@ -43,7 +43,7 @@ export default function Landing() {
         navigate('/upload', { state: { studentName, rollno, section } });
     }
     return (
-        <>
+        <div className='flex flex-col items-center'>
 
             <div className="flex flex-row max-sm:flex-col items-center gap-5 my-0">
                 <p className='text-9xl font-serif font-medium text-center'>SIKSHA SAHAYAK</p>
@@ -72,7 +72,7 @@ export default function Landing() {
 
                 </div>
             </div>
-            <Accordion type="single" collapsible className=' mx-36 my-4'>
+            <Accordion type="single" collapsible className=' w-[80%] mx-36 my-4 py-10'>
                 <AccordionItem value="item-1">
                     <AccordionTrigger>What is the purpose of this platform?</AccordionTrigger>
                     <AccordionContent>
@@ -87,6 +87,6 @@ export default function Landing() {
                 </AccordionItem>
             </Accordion>
             <Footer />
-        </>
+        </div>
     )
 }
