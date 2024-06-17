@@ -39,7 +39,7 @@ export default function Landing() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const studentName = nameRef.current.value;
-        const rollno = rollRef.current.value;
+        const rollno = rollRef.current.value.toUpperCase();
         navigate('/upload', { state: { studentName, rollno, section } });
     }
     return (
