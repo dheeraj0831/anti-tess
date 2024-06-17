@@ -1,9 +1,9 @@
 import Probpreview from '@/components/Probpreview'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const Allatone = () => {
-  // const decider  = true
   const token = localStorage.getItem('token');
   let user = null
 
@@ -43,21 +43,48 @@ const Allatone = () => {
 
   useEffect(() => {
     getAllIssues();
+  }, []);
+
+  const filterProblemsByStatus = (status) => {
+    return problems.filter(problem => problem.status === status);
   }
-    , [])
-
-
 
   return (
     <>
       {
-        problems.length ? (<div className='grid grid-cols-4 gap-5 mx-12 my-8'>
-          {problems.map((problem) => (
-            <Probpreview key={problem._id} problem={problem} user={user} />
-          ))
-          }
-        </div>) : (<h1 className='text-4xl text-center mt-20'>No Issues to Show</h1>)
-      }</>
+        problems.length ? (
+          <Tabs defaultValue="default" className='mx-10 my-1'>
+            <TabsList className="w-full flex justify-evenly h-12">
+              <TabsTrigger className="h-9 " value="default">Pending</TabsTrigger>
+              <TabsTrigger className="h-9" value="approved">Approved</TabsTrigger>
+              <TabsTrigger className="h-9" value="rejected">Rejected</TabsTrigger>
+            </TabsList>
+            <TabsContent value="default">
+              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                {filterProblemsByStatus("default").map((problem) => (
+                  <Probpreview key={problem._id} problem={problem} user={user} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="approved">
+              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                {filterProblemsByStatus("approved").map((problem) => (
+                  <Probpreview key={problem._id} problem={problem} user={user} />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="rejected">
+              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                {filterProblemsByStatus("rejected").map((problem) => (
+                  <Probpreview key={problem._id} problem={problem} user={user} />
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+        ) : (
+          <h1 className='text-4xl text-center mt-20'>No Issues to Show</h1>
+        )}
+    </>
   )
 }
 

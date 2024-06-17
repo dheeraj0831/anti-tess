@@ -72,15 +72,22 @@ app.post("/api/problems", async (req, res) => {
 app.put("/api/approve", authMiddleware, async (req, res) => {
   const { imageUrl, approval } = req.body;
   try {
-    await Problem.findOneAndUpdate({ imageUrl }, { status: approval });
-    res.status(200).json({ message: "Status updated successfully" });
+    if (approval === "delete") {
+      await Problem.findOneAndDelete({ imageUrl });
+      res.status(200).json({ message: "Problem deleted successfully" });
+    } else {
+      await Problem.findOneAndUpdate({ imageUrl }, { status: approval });
+      res.status(200).json({ message: "Status updated successfully" });
+    }
   } catch (err) {
-    res.status(400).json({ message: "Error in updating the status" });
+    res.status(400).json({
+      message: "Error in updating the status or deleting the problem",
+    });
   }
 });
 
 app.get("/api/approve", authMiddleware, async (req, res) => {
-  const problems = await Problem.find({ status: "default" });
+  const problems = await Problem.find();
   res.json(problems);
 });
 

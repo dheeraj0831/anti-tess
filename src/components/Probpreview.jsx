@@ -19,32 +19,68 @@ import { useState } from 'react'
 
 const Probpreview = ({ problem, user }) => {
 
-    const { studentName, rollno, section, imageUrl, description, subject } = problem
+    const { studentName, rollno, section, imageUrl, description, subject, status } = problem
     const shortDesc = description.substring(0, 50) + "..."
     const [changed, setChanged] = useState(false);
-    const handleCLick = async (action) => {
-        const response = await axios({
-            url: `${import.meta.env.VITE_SERVER_URL}/api/approve`,
-            method: "put",
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
-            },
-            data: {
-                imageUrl: imageUrl,
-                approval: action
+
+    const handleClick = async (action) => {
+        try {
+            const response = await axios({
+                url: `${import.meta.env.VITE_SERVER_URL}/api/approve`,
+                method: "put",
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                },
+                data: {
+                    imageUrl: imageUrl,
+                    approval: action
+                }
+            });
+
+            if (response.status === 200) {
+                setChanged(true);
+
+                if (action === "delete") {
+                    // Extract the public_id from the imageUrl if needed
+                    const publicId = extractPublicIdFromUrl(imageUrl);
+                    // console.log(publicId)
+
+                    // Delete the image from Cloudinary
+                    await axios({
+                        url: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/destroy`,
+                        method: "post",
+                        auth: {
+                            username: import.meta.env.VITE_CLOUDINARY_API_KEY,
+                            password: import.meta.env.VITE_CLOUDINARY_API_SECRET
+                        },
+                        data: {
+                            public_id: publicId
+                        }
+                    });
+                }
+
+                window.location.reload();
             }
-        });
-        if (response.status == 200) {
-            setChanged(true);
+        } catch (error) {
+            console.error("Error handling the action:", error);
         }
-        window.location.reload();
-    }
+    };
+
+    // Helper function to extract the public_id from the imageUrl
+    const extractPublicIdFromUrl = (url) => {
+        const parts = url.split('/');
+        const publicIdWithExtension = parts[parts.length - 1];
+        const publicId = publicIdWithExtension.split('.')[0]; // Remove file extension
+        return publicId;
+    };
+
     return (
         <>
             <Dialog>
                 <DialogTrigger asChild>
                     <Card className="w-full transform transition-transform hover:scale-105 cursor-pointer">
                         <CardHeader>
+                            {/* {console.log(status)} */}
                             <CardTitle>{studentName}</CardTitle>
                             <CardDescription>{section}</CardDescription>
                         </CardHeader>
@@ -69,10 +105,16 @@ const Probpreview = ({ problem, user }) => {
                             {description}
                         </CardContent>
                         <CardFooter className='flex justify-evenly'>
-                            {user && (
+                            {user && (status === "default") && (
                                 <>
                                     <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleCLick('approved')} disabled={changed}>Approve</Button>
                                     <Button className='w-1/3' onClick={() => handleCLick('rejected')} disabled={changed}>Reject</Button>
+                                </>
+                            )}
+                            {user && (status === "rejected") && (
+                                <>
+                                    <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleClick('approved')} disabled={changed}>Approve</Button>
+                                    <Button className='w-1/3' onClick={() => handleClick('delete')} disabled={changed}>Delete</Button>
                                 </>
                             )}
 
