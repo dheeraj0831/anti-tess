@@ -18,7 +18,6 @@ import { useState } from 'react'
 
 
 const Probpreview = ({ problem, user }) => {
-
     const { studentName, rollno, section, imageUrl, description, subject, status } = problem
     const shortDesc = description.substring(0, 50) + "..."
     const [changed, setChanged] = useState(false);
@@ -41,11 +40,8 @@ const Probpreview = ({ problem, user }) => {
                 setChanged(true);
 
                 if (action === "delete") {
-                    // Extract the public_id from the imageUrl if needed
                     const publicId = extractPublicIdFromUrl(imageUrl);
-                    // console.log(publicId)
 
-                    // Delete the image from Cloudinary
                     await axios({
                         url: `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/destroy`,
                         method: "post",
@@ -58,72 +54,67 @@ const Probpreview = ({ problem, user }) => {
                         }
                     });
                 }
-
-                window.location.reload();
             }
         } catch (error) {
             console.error("Error handling the action:", error);
+        } finally {
+            setChanged(false);
+            window.location.reload();
         }
     };
 
-    // Helper function to extract the public_id from the imageUrl
     const extractPublicIdFromUrl = (url) => {
         const parts = url.split('/');
         const publicIdWithExtension = parts[parts.length - 1];
-        const publicId = publicIdWithExtension.split('.')[0]; // Remove file extension
+        const publicId = publicIdWithExtension.split('.')[0];
         return publicId;
     };
 
     return (
-        <>
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Card className="w-full transform transition-transform hover:scale-105 cursor-pointer">
-                        <CardHeader>
-                            {/* {console.log(status)} */}
-                            <CardTitle>{studentName}</CardTitle>
-                            <CardDescription>{section}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <img src={imageUrl} alt={rollno} className="w-full h-32" />
-                            {shortDesc}
-                        </CardContent>
-                    </Card>
-                </DialogTrigger>
-                <DialogContent className='max-w-7xl'>
-                    <Card className='m-2 bg-transparent border-0 '>
-                        <CardHeader>
-                            <CardTitle>{studentName}</CardTitle>
-                            <CardDescription className="flex justiy-evenly gap-5">
-                                {rollno}
-                                <Badge variant="secondary">{section}</Badge>
-                                <Badge variant="secondary">{subject}</Badge>
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent className='flex flex-col items-center gap-5'>
-                            <img className="w-full max-h-[28rem]" src={imageUrl} alt={rollno} />
-                            {description}
-                        </CardContent>
-                        <CardFooter className='flex justify-evenly'>
-                            {user && (status === "default") && (
-                                <>
-                                    <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleCLick('approved')} disabled={changed}>Approve</Button>
-                                    <Button className='w-1/3' onClick={() => handleCLick('rejected')} disabled={changed}>Reject</Button>
-                                </>
-                            )}
-                            {user && (status === "rejected") && (
-                                <>
-                                    <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleClick('approved')} disabled={changed}>Approve</Button>
-                                    <Button className='w-1/3' onClick={() => handleClick('delete')} disabled={changed}>Delete</Button>
-                                </>
-                            )}
-
-                        </CardFooter>
-                    </Card>
-                </DialogContent>
-            </Dialog>
-
-        </>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Card className="w-full transform transition-transform hover:scale-105 cursor-pointer">
+                    <CardHeader>
+                        <CardTitle>{studentName}</CardTitle>
+                        <CardDescription>{section}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <img src={imageUrl} alt={rollno} className="w-full h-32" />
+                        {shortDesc}
+                    </CardContent>
+                </Card>
+            </DialogTrigger>
+            <DialogContent className='max-w-7xl'>
+                <Card className='m-2 bg-transparent border-0 '>
+                    <CardHeader>
+                        <CardTitle>{studentName}</CardTitle>
+                        <CardDescription className="flex justiy-evenly gap-5">
+                            {rollno}
+                            <Badge variant="secondary">{section}</Badge>
+                            <Badge variant="secondary">{subject}</Badge>
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className='flex flex-col items-center gap-5'>
+                        <img className="w-full max-h-[28rem]" src={imageUrl} alt={rollno} />
+                        {description}
+                    </CardContent>
+                    <CardFooter className='flex justify-evenly'>
+                        {user && (status === "default") && (
+                            <>
+                                <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleClick('approved')} disabled={changed}>Approve</Button>
+                                <Button className='w-1/3' onClick={() => handleClick('rejected')} disabled={changed}>Reject</Button>
+                            </>
+                        )}
+                        {user && (status === "rejected") && (
+                            <>
+                                <Button className='w-1/3 bg-slate-700 hover:bg-green-600' onClick={() => handleClick('approved')} disabled={changed}>Approve</Button>
+                                <Button className='w-1/3' onClick={() => handleClick('delete')} disabled={changed}>Delete</Button>
+                            </>
+                        )}
+                    </CardFooter>
+                </Card>
+            </DialogContent>
+        </Dialog>
     )
 }
 

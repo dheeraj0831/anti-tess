@@ -63,21 +63,33 @@ const Allatone = () => {
             <TabsContent value="default">
               <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
                 {filterProblemsByStatus("default").map((problem) => (
-                  <Probpreview key={problem._id} problem={problem} user={user} />
+                  <Probpreview
+                    key={problem._id}
+                    problem={problem}
+                    user={user}
+                  />
                 ))}
               </div>
             </TabsContent>
             <TabsContent value="approved">
               <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
                 {filterProblemsByStatus("approved").map((problem) => (
-                  <Probpreview key={problem._id} problem={problem} user={user} />
+                  <Probpreview
+                    key={problem._id}
+                    problem={problem}
+                    user={user}
+                  />
                 ))}
               </div>
             </TabsContent>
             <TabsContent value="rejected">
               <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
                 {filterProblemsByStatus("rejected").map((problem) => (
-                  <Probpreview key={problem._id} problem={problem} user={user} />
+                  <Probpreview
+                    key={problem._id}
+                    problem={problem}
+                    user={user}
+                  />
                 ))}
               </div>
             </TabsContent>
@@ -85,7 +97,13 @@ const Allatone = () => {
         ) : (
           <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
             {problems.map((problem) => (
-              <Probpreview key={problem._id} problem={problem} user={user} />
+              <Probpreview
+                key={problem._id}
+                problem={problem}
+                user={user}
+                onStatusChange={handleStatusChange}
+                onClose={() => setDialogOpen(false)}
+              />
             ))}
           </div>
         )
