@@ -18,7 +18,7 @@ import { useState } from 'react'
 
 
 const Probpreview = ({ problem, user }) => {
-    const { studentName, rollno, section, imageUrl, description, subject, status } = problem
+    const { studentName, rollno, section, imageUrl, description, subject, status, unitTest } = problem
     const shortDesc = description.substring(0, 50) + "..."
     const [changed, setChanged] = useState(false);
 
@@ -92,6 +92,7 @@ const Probpreview = ({ problem, user }) => {
                             {rollno}
                             <Badge variant="secondary">{section}</Badge>
                             <Badge variant="secondary">{subject}</Badge>
+                            <Badge variant="secondary">{unitTest}</Badge>
                         </CardDescription>
                     </CardHeader>
                     <CardContent className='flex flex-col items-center gap-5'>
