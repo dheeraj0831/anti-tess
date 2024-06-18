@@ -14,7 +14,20 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useState } from 'react'
+
+const ProbpreviewSkeleton = () => {
+    return (
+        <div className='w-full flex flex-col items-start gap-3 p-7 h-[19rem] border rounded-md'>
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-3 w-[40%]" />
+            <Skeleton className=" h-36 w-full" />
+            <Skeleton className=" h-4 w-full" />
+            <Skeleton className=" h-4 w-[50%]" />
+        </div>
+    )
+}
 
 
 const Probpreview = ({ problem, user }) => {
@@ -120,3 +133,5 @@ const Probpreview = ({ problem, user }) => {
 }
 
 export default Probpreview
+export { ProbpreviewSkeleton }
+// export default ProbpreviewSkeleton
