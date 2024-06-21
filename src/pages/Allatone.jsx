@@ -87,7 +87,7 @@ const Allatone = () => {
           <>
             <Skeleton className='mx-12 h-12' />
             <Skeleton className='mx-20 mt-4 px-5 h-4 w-[19%]' />
-            <div className='mx-16 mt-10 grid grid-cols-4 gap-5'>
+            <div className='mx-16 mt-10 grid grid-cols-4 max-sm:grid-cols-1 gap-5'>
               {Array(8).fill(0).map((_, index) => (
                 <ProbpreviewSkeleton key={index} />
               ))}
@@ -96,7 +96,7 @@ const Allatone = () => {
         ) : (
           <>
             <Skeleton className='mx-12 mt-4 h-4 w-[19%]' />
-            <div className='mx-12 mt-16 grid grid-cols-4 gap-5'>
+            <div className='mx-12 mt-16 grid grid-cols-4 max-sm:grid-cols-1 gap-5'>
               {Array(8).fill(0).map((_, index) => (
                 <ProbpreviewSkeleton key={index} />
               ))}
@@ -119,7 +119,7 @@ const Allatone = () => {
                   return (
                     <>
                       <p className='text-lg mx-12 my-3'>Number of Issues Pending: {filteredProblems.length}</p>
-                      {/* <div className="mx-12 my-4">
+                      <div className="mx-12 my-4">
                         <label className="mx-2">Unit Test:</label>
                         <select onChange={(e) => setUnitTestFilter(e.target.value)} value={unitTestFilter}>
                           <option value="">All</option>
@@ -143,8 +143,8 @@ const Allatone = () => {
                             <option key={index} value={value}>{value}</option>
                           ))}
                         </select>
-                      </div> */}
-                      <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      </div>
+                      <div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
                         {filteredProblems.map((problem) => (
                           <Probpreview
                             key={problem._id}
@@ -164,7 +164,7 @@ const Allatone = () => {
                   return (
                     <>
                       <p className='text-lg mx-12 my-3'>Number of Issues Approved: {filteredProblems.length}</p>
-                      {/* <div className="mx-12 my-4">
+                      <div className="mx-12 my-4">
                         <label className="mx-2">Unit Test:</label>
                         <select onChange={(e) => setUnitTestFilter(e.target.value)} value={unitTestFilter}>
                           <option value="">All</option>
@@ -188,8 +188,8 @@ const Allatone = () => {
                             <option key={index} value={value}>{value}</option>
                           ))}
                         </select>
-                      </div> */}
-                      <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      </div>
+                      <div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
                         {filteredProblems.map((problem) => (
                           <Probpreview
                             key={problem._id}
@@ -209,7 +209,7 @@ const Allatone = () => {
                   return (
                     <>
                       <p className='text-lg mx-12 my-3'>Number of Issues Rejected: {filteredProblems.length}</p>
-                      {/* <div className="mx-12 my-4">
+                      <div className="mx-12 my-4">
                         <label className="mx-2">Unit Test:</label>
                         <select onChange={(e) => setUnitTestFilter(e.target.value)} value={unitTestFilter}>
                           <option value="">All</option>
@@ -233,8 +233,8 @@ const Allatone = () => {
                             <option key={index} value={value}>{value}</option>
                           ))}
                         </select>
-                      </div> */}
-                      <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+                      </div>
+                      <div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
                         {filteredProblems.map((problem) => (
                           <Probpreview
                             key={problem._id}
@@ -276,7 +276,7 @@ const Allatone = () => {
                   ))}
                 </select>
               </div> */}
-              <div className='grid grid-cols-4 gap-5 mx-12 my-8'>
+              <div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
                 {filterProblems().map((problem) => (
                   <Probpreview
                     key={problem._id}

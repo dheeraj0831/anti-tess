@@ -101,11 +101,11 @@ const Probpreview = ({ problem, user }) => {
                 <Card className='m-2 bg-transparent border-0 '>
                     <CardHeader>
                         <CardTitle>{studentName}</CardTitle>
-                        <CardDescription className="flex justiy-evenly gap-5">
+                        <CardDescription className="flex max-sm:flex-col justiy-evenly gap-5">
                             {rollno}
-                            <Badge variant="secondary">{section}</Badge>
-                            <Badge variant="secondary">{subject}</Badge>
-                            <Badge variant="secondary">{unitTest}</Badge>
+                            <Badge className="max-sm:w-[40%]" variant="secondary">{section}</Badge>
+                            <Badge className="max-sm:w-[40%]" variant="secondary">{subject}</Badge>
+                            <Badge className="max-sm:w-[40%]" variant="secondary">{unitTest}</Badge>
                         </CardDescription>
                     </CardHeader>
                     <CardContent className='flex flex-col items-center gap-5'>
