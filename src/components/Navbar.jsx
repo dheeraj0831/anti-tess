@@ -62,10 +62,11 @@ const Navbar = () => {
         <>
             <div className="flex flex-col min-h-screen">
                 <nav className='dark px-4 py-4 flex items-center justify-between sticky'>
-                    <Link to="/" className='flex items-center text-xl font-bold'>
+                    <Link to="/home" className='flex items-center text-xl font-bold'>
                         <img className=' max-w-7' src="./logo.png" alt="logo" />Siksha Sahayak
                     </Link>
                     <div className='flex items-center gap-16'>
+                        <Link to='/final-verdict' className=' hover:text-gray-300'>Final Verdict</Link>
                         <Link to='/all-issues' className=' hover:text-gray-300'>All Issues</Link>
                         {!user ? (
                             <Dialog>
