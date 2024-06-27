@@ -342,16 +342,19 @@ const Allatone = () => {
                 </Select>
 
               </div>
-              {filterProblems.length ? (<div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
-                {filterProblems().map((problem) => (
-                  <Probpreview
-                    key={problem._id}
-                    problem={problem}
-                    user={user}
-                  />
-                ))}
-              </div>) : (
-                <h1 className='text-4xl text-center mt-20'>No Issues to Show</h1>
+
+              {problems.length ? (
+                <div className='grid grid-cols-4 max-sm:grid-cols-1 gap-5 mx-12 my-8'>
+                  {filterProblems().map((problem) => (
+                    <Probpreview
+                      key={problem._id}
+                      problem={problem}
+                      user={user}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <h1 className='text-4xl text-center mt-20'>No Issues to Show{filterProblems.length}</h1>
 
               )}
             </>
